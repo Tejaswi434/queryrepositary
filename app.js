@@ -7,7 +7,7 @@ const { open } = require("sqlite");
 const sqlite3 = require("sqlite3");
 const app = express();
 app.use(express.json());
-const dbPath = path.join(__dirname, "cricketMatchDetails.db");
+const dbPath = path.join(__dirname, "todoApplication.db");
 let db = null;
 const initializeDBAndServer = async () => {
   try {
@@ -39,14 +39,14 @@ const checking_3 = (requestquery) => {
 app.get(`/todos/`, async (request, response) => {
   const { term = "", priority, status } = request.query;
   switch (true) {
-    case checking_1(requestquery):
+    case checking_1(request.query):
       dbterms = `select * from todo where todo like '%${term}%' and status='${status}' and priority='${priority}';`;
       break;
 
-    case checking_2(requestquery):
+    case checking_2(request.query):
       dbterms = `select * from todo where todo like'%${term}%' and priority='${priority}';`;
       break;
-    case checking_3(requestquery):
+    case checking_3(request.query):
       dbterms = `select * from todo where todo like'%${term}%' and priority='${priority}';`;
       break;
     default:
